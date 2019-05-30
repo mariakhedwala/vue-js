@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="js/style.css">
+    <script src="https://unpkg.com/vue"></script>
+</head>
+
+<body>
+    <div id="app">
+        <p>{{ message }}</p>
+    </div>
+
+    <!-- The v-bind attribute you are seeing is called a directive. Directives are prefixed with v- to indicate that they are special attributes provided by Vue, and as you may have guessed, they apply special reactive behavior to the rendered DOM.  -->
+    <div id="app-2">
+        <span v-bind:title="message">
+            Hover your mouse over me for a few seconds
+            to see my dynamically bound title!
+        </span>
+    </div>
+
+    <!-- Go ahead and enter app3.seen = false in the console. You should see the message disappear. -->
+    <div id="app-3">
+        <span v-if="seen">Now you see me</span>
+    </div>
+
+    <!-- the v-for directive can be used for displaying a list of items using the data from an Array: -->
+    <div id="app-4">
+        <ol>
+            <li v-for="todo in todos">
+                {{ todo.text }}
+            </li>
+        </ol>
+    </div>
+
+    <!-- To let users interact with your app, we can use the v-on directive to attach event listeners that invoke methods on our Vue instances -->
+    <div id="app-5">
+        <p>{{ message }}</p>
+        <button v-on:click="reverseMessage">Reverse Message</button>
+    </div>
+
+    <!-- the v-model directive that makes two-way binding between form input and app state a breeze -->
+    <div id="app-6">
+        <p>{{ message }}</p>
+        <input v-model="message">
+    </div>
+    <hr>
+
+    <ol>
+        <!-- Create an instance of the todo-item component -->
+        <todo-item></todo-item>
+    </ol>
+    <hr>
+
+    <div id="app-7">
+        <ol>
+            <!--
+                Now we provide each todo-item with the todo object
+                it's representing, so that its content can be dynamic.
+                We also need to provide each component with a "key",
+                which will be explained later.
+              -->
+            <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id"></todo-item>
+        </ol>
+    </div>
+
+    <div id="example"></div>
+
+    <div id="app-8">
+        <h2 v-once>{{ title }}</h2>
+        <p>{{ sayHello() }} - <a v-bind:href="link">Vue</a></p>
+        <hr>
+        <p v-html="finishedLink"></p>
+    </div>
+
+    <div id="app-9">
+        <button v-on:click="increase(2)">click to inc 2</button>
+        <button v-on:click="counter++">click to inc 1</button>
+        <p>{{ counter * 2 }} {{ counter * 2 > 10 ? 'Greater than 10' : 'Smaller than 10' }}</p>
+        <p v-on:mousemove="updateCordinates">
+            Cordinates {{ x }} / {{ y }}
+            - <span v-on:mousemove.stop>Dead Spot</span>
+        </p>
+        <input type="text" v-on:keyup.enter.space.esc="alertMe">
+        <button v-on:click="counter++">click to inc</button>
+        <button v-on:click="counter--">click to dec</button>
+        <p>Result : {{ result() }} | {{ output }}</p>
+        <p>{{ counter }}</p>
+    </div>
+
+    <hr>
+
+    <div id="app-10">
+        <div class="demo" @click="attachRed = !attachRed" :class="{red: attachRed}"></div>
+        <!-- <div class="demo" @click="attachGreen = !attachGreen" :class="{green: attachGreen}"></div> -->
+        <!-- <div class="demo" @click="attachBlue = !attachBlue" :class="{blue: attachBlue}"></div> -->
+        <div class="demo" @click="attachRed = !attachRed" :class="divClasses"></div>
+        <div class="demo" :class="[color, {red: attachRed}]"></div>
+        <div class="demo" :style="{backgroundColor: color}"></div>
+        <div class="demo" :style="myStyle"></div>
+        <div class="demo" :style="[myStyle, {height: width + 'px'}]"></div>
+        <hr>
+        <input type="text" v-model="color">
+        <input type="number" v-model="width">
+    </div>
+
+    <hr>
+
+    <div id="app-11">
+        <p v-if="show">In if stmt</p>
+        <p v-else>In else stmt</p>
+        <p>no condition</p>
+        <template v-if="show">
+            <h2>hey</h2>
+            <p>
+                inside a template
+            </p>
+        </template>
+        <p v-show="show">In hide and show</p>
+        <button @click="show = !show">Switch</button>
+    </div>
+    <hr>
+
+
+
+    <script src="js/script.js" type="text/javascript"></script>
+</body>
+
+</html>
